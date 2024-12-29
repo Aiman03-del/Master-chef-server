@@ -246,34 +246,6 @@ async function run() {
         res.status(500).send({ message: "Failed to fetch orders" });
       }
     });
-
-    // Delete an order
-    app.delete("/orders/:id", async (req, res) => {
-      const { id } = req.params;
-      const { email } = req.query;
-
-      try {
-        // Find the order by ID
-        const order = await ordersCollection.findOne({ _id: new ObjectId(id) });
-        if (!order) return res.status(404).send({ message: "Order not found" });
-
-        // Check if the email matches the order's email
-        if (order.email !== email) {
-          return res
-            .status(403)
-            .send({ message: "You cannot delete another user's order" });
-        }
-
-        // Delete the order
-        const result = await ordersCollection.deleteOne({
-          _id: new ObjectId(id),
-        });
-        res.status(200).send({ message: "Order deleted successfully", result });
-      } catch (error) {
-        console.error("Error deleting order:", error);
-        res.status(500).send({ message: "Failed to delete order" });
-      }
-    });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
