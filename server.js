@@ -285,7 +285,7 @@ app.get("/", (req, res) => {
 });
 
 run().catch(console.dir);
-
+// running localhost
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
