@@ -66,7 +66,7 @@ async function run() {
       .db("restaurant-management")
       .collection("orders");
 
-    // Authentication related API
+    // Authentication related APIs
     app.post("/jwt", async (req, res) => {
       const user = req.body;
       const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
@@ -87,11 +87,11 @@ async function run() {
         .clearCookie("token", { httpOnly: true, secure: false })
         .send({ success: true });
     });
-    // get all Foods
+
     app.get("/all-foods", verifyToken, async (req, res) => {
       try {
-        const userEmail = req.user.email;
-        console.log("Fetching foods for user:", userEmail);
+        const userEmail = req.user.email; // Check if this is correct
+        console.log("Fetching foods for user:", userEmail); // Log the email for debugging
 
         const foods = await foodsCollection
           .find({ "addedBy.email": userEmail })
@@ -135,6 +135,7 @@ async function run() {
     app.post("/foods", async (req, res) => {
       const newFood = req.body;
 
+      // Ensure food has an addedBy field
       if (!newFood.addedBy || !newFood.addedBy.email) {
         newFood.addedBy = { name: "Anonymous", email: "N/A" };
       }
@@ -202,7 +203,7 @@ async function run() {
       }
     });
 
-    // Place new order
+    // Place a new order
     app.post("/orders", verifyToken, async (req, res) => {
       const newOrder = req.body;
 
@@ -247,7 +248,7 @@ async function run() {
       }
     });
 
-    // Delete an order
+    // Delete an order with verification
     app.delete("/orders/:id", async (req, res) => {
       const { id } = req.params;
       const { email } = req.query;
@@ -284,8 +285,10 @@ app.get("/", (req, res) => {
   res.send("Restaurant Management API is running");
 });
 
+// Run the connection
 run().catch(console.dir);
-// running localhost
+
+// Start listening
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
