@@ -258,14 +258,12 @@ async function run() {
         const order = await ordersCollection.findOne({ _id: new ObjectId(id) });
         if (!order) return res.status(404).send({ message: "Order not found" });
 
-        // Check if the email matches the order's email
         if (order.email !== email) {
           return res
             .status(403)
             .send({ message: "You cannot delete another user's order" });
         }
 
-        // Delete the order
         const result = await ordersCollection.deleteOne({
           _id: new ObjectId(id),
         });
@@ -282,7 +280,7 @@ async function run() {
 
 // Start the server
 app.get("/", (req, res) => {
-  res.send("Restaurant Management API is running");
+  res.send("Master Chef API is running");
 });
 
 // Run the connection
