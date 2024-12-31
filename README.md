@@ -8,7 +8,7 @@ This project serves as a backend API for a restaurant management application, en
 
 ## Live URL
 
-[Master Chef API](https://restaurant-management-7b76f.web.app)
+[Master Chef API](https://server-sigma-plum.vercel.app/)
 
 ## Key Features
 
@@ -72,6 +72,6 @@ This project serves as a backend API for a restaurant management application, en
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/restaurant-management-api.git
-   cd restaurant-management-api
+   git clone https://github.com/Aiman03-del/Master-chef-server.git
+   cd master-chef-api
    ```
